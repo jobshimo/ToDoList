@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+.oculto {
+    display: none;
+}
+
+.opacidad {
+    background: #000000bf;
+}
+
+.avatar {
+    width: 250px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.ellipsisImg {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: revert;
+}
+
+.list {
+    margin: auto;
+    margin-top: 11px;
+}
+
+.marginDelete {
+    margin: 1px;
+}
+
+.tools {
+    font-size: 88%;
+    font-weight: 700;
+    line-height: 1.5;
+    border-radius: 25px;
+    width: 30px;
+}
+
+body {
+    background-color: #5d2b30;
+}
+
+.fondolista {
+    background: #45229c;
+    color: white;
+}
+
+.back {
+    margin-right: 7px;
+}
+
+.tb {
+    text-align: center;
+    color: white;
+    background: #343a40;
+    margin-bottom: 0;
+    border: none !important;
+}
