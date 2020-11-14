@@ -6,7 +6,7 @@
         </div>
         <div class="col-md-4 list animated fadeIn fast">
 
-            <table class="table table-bordered tb">
+            <table class="table table-bordered tb animated fadeIn">
 
                 <thead class="tb">
                     <tr>
@@ -16,16 +16,26 @@
                 </thead>
             </table>
             <ul class="list-group" *ngFor="let lista of listas">
-                <li class="list-group-item d-flex justify-content-between align-items-center  fondolista animated fadeIn ">
-                    <div class="cursor" [routerLink]="['/home/lista',lista.key]">
-                        {{lista.nombre}}
+                <li class="list-group-item d-flex justify-content-between align-items-center  fondolista animated fadeIn slow ">
+
+
+                    <div class="cursor col zoomLista" [routerLink]="['/home/lista',lista.key]">{{lista.nombre}} <span>
+                            <span class="badge badge-primary badge-pill tools ml-2">{{lista.tareas.length}}</span>
+
+                        </span>
                     </div>
-                    <span>
-                        <span class="badge badge-primary badge-pill tools">{{lista.tareas.length}}</span>
-                    <a (click)="deletList(appUser.key, lista.key, lista.nombre)" class="badge badge-danger badge-pill marginDelete tools"><i class="fas fa-trash-alt cursor"></i></a>
-                    </span>
+
+                    <a (click)="deletList(appUser.key, lista.key, lista.nombre)" class="badge badge-danger badge-pill marginDelete tools float zoom"><i class="fas fa-trash-alt cursor"></i></a>
                 </li>
             </ul>
+
+            <table class="table table-bordered tbEnd animated fadeIn">
+                <thead class="tbEnd">
+                    <tr>
+                        <th class="tbEnd"></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>

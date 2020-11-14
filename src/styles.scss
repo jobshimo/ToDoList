@@ -35,6 +35,7 @@
     line-height: 1.5;
     border-radius: 25px;
     width: 30px;
+    margin-right: 5px;
 }
 
 body {
@@ -53,7 +54,50 @@ body {
 .tb {
     text-align: center;
     color: white;
-    background: #343a40;
+    background: linear-gradient(to bottom, #229a9a, #46229a);
     margin-bottom: 0;
     border: none !important;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.tbEnd {
+    text-align: center;
+    color: white;
+    background: linear-gradient(to bottom, #46229a, #229a9a, );
+    margin-bottom: 0;
+    border: none !important;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.condition {
+    background: #2b8220;
+    margin-left: 10px;
+}
+
+.float {
+    float: right;
+}
+
+.badge-undo {
+    color: #fff;
+    background-color: #46229a;
+}
+
+.badge-undo:hover {
+    color: #db3545;
+}
+
+.zoom:hover {
+    transform: scale(1.2);
+}
+
+.zoomLista:hover {
+    transform: scale(1.2);
+    padding-left: 33px
+}
+
+.fondoNav {
+    background: linear-gradient(to bottom, #229a9a, #46229a);
 }

@@ -3,11 +3,13 @@
         <div class="mt-5 text-center">
 
 
-            <button type="button" [routerLink]="['/home/listas']" class="btn btn-outline-success back"><i class="fas fa-long-arrow-alt-left cursor"></i> Back</button>
-            <button type="button" (click)="abrirSwal(appUser.key, docKey)" class="btn btn-outline-success"><i class="fas fa-plus cursor"></i> Create Item</button>
+            <button type="button" [routerLink]="['/home/listas']" class="btn btn-outline-success back"><i
+                    class="fas fa-long-arrow-alt-left cursor"></i> Back</button>
+            <button type="button" (click)="abrirSwal(appUser.key, docKey)" class="btn btn-outline-success"><i
+                    class="fas fa-plus cursor"></i> Create Item</button>
         </div>
-        <div class="col-md-4 list animated fadeIn fast">
-            <table class="table table-bordered tb">
+        <div class="col-md-4 list animated fadeIn">
+            <table class="table table-bordered tb animated fadeIn slow">
 
                 <thead class="tb">
                     <tr>
@@ -17,20 +19,32 @@
                 </thead>
             </table>
             <ul class="list-group" *ngFor="let tarea of lista">
-                <li class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn slow">
-                    <div [innerHTML]="tarea | complete"></div>
+                <li [ngClass]="(tarea.includes('- FINISH'))?'condition':''" class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn slow">
+                    <div [innerHTML]="tarea | complete">
+
+
+                    </div>
                     <span>
-                        <a *ngIf="!tarea.includes('- FINISH')" (click)="checkItem(appUser.key, docKey, tarea)" class="badge badge-success badge-pill marginDelete tools"><i class="fas fa-check cursor"></i></a>
-                        <a *ngIf="tarea.includes('- FINISH')" (click)="desCheckItem(appUser.key, docKey, tarea)" class="badge badge-primary badge-pill marginDelete tools"><i class="fas fa-times cursor"></i></a>
-                        <a *ngIf="!tarea.includes('- FINISH')"  (click)="deletList(appUser.key, docKey, tarea)" class="badge badge-danger badge-pill marginDelete tools"><i class="fas fa-trash-alt cursor"></i></a>
-                        <a *ngIf="!tarea.includes('- FINISH')" (click)="editItem(appUser.key, docKey, tarea)" class="badge badge-primary badge-pill marginDelete tools"><i class="fas fa-pen-square cursor"></i></a>
+                        <a *ngIf="!tarea.includes('- FINISH')" (click)="checkItem(appUser.key, docKey, tarea)"
+                            class="badge badge-success badge-pill marginDelete tools zoom"><i class="fas fa-check cursor"></i></a>
+                        <a *ngIf="tarea.includes('- FINISH')" (click)="desCheckItem(appUser.key, docKey, tarea)"
+                            class="badge badge-undo badge-pill marginDelete tools zoom"><i class="fas fa-undo cursor"></i></a>
+                        <a *ngIf="!tarea.includes('- FINISH')" (click)="deletList(appUser.key, docKey, tarea)"
+                            class="badge badge-danger badge-pill marginDelete tools zoom"><i class="fas fa-trash-alt cursor"></i></a>
+                        <a *ngIf="!tarea.includes('- FINISH')" (click)="editItem(appUser.key, docKey, tarea)"
+                            class="badge badge-primary badge-pill marginDelete tools zoom"><i class="fas fa-pen-square cursor"></i></a>
 
                     </span>
 
                 </li>
-
             </ul>
+            <table class="table table-bordered tbEnd fadeIn slow">
+                <thead class="tbEnd">
+                    <tr>
+                        <th class="tbEnd"></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-
     </div>
 </div>

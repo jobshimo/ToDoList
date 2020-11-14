@@ -88,9 +88,10 @@ export class ListaComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkItem(user, key, item) {
+  checkItem(user, key, item, id) {
     this.listService.deletItem(user, key, item);
     this.listService.addItem(user, key, `${item} - FINISH`);
+
   }
   desCheckItem(user, key, item) {
     this.listService.deletItem(user, key, item);
