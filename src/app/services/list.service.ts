@@ -1,8 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import * as firebase from 'firebase/app'; 
+import * as firebase from 'firebase/app';
+import { first } from 'rxjs/operators';
+import { List } from '../models/list.model';
+import { UserModel } from '../models/user.model';
+import { ListItem } from '../models/list-item.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +21,6 @@ export class ListService implements OnInit {
   constructor(private db: AngularFirestore) {}
   ngOnInit(): void {}
 
-  newList(key, data) {
-    this.db
-      .collection('users')
-      .doc(key)
-      .collection('Listas')
-      .doc(data.key)
-      .set(data, { merge: true });
-  }
-
   getListas(key) {
     this.lists = this.db
       .collection('users')
@@ -30,42 +28,98 @@ export class ListService implements OnInit {
       .collection('Listas')
       .valueChanges();
   }
+
+  // Creado por Suazo
+  getListSuazo(userKey: UserModel['key']): Observable<List[]> {
+    return this.db
+      .collection<List>('listas', (ref) => {
+        ref.where('owner', '==', userKey);
+        return ref.orderBy('createdDate');
+      })
+      .valueChanges();
+  }
+  // Modificado con Suazo
+  newList(userKey: string, data: List) {
+    data.id = this.db.createId();
+    data.owner = userKey;
+    this.db.doc(`listas/${data.id}`).set(data);
+  }
+
+  addItem(lista: List, item: ListItem) {
+    this.db.doc(`listas/${lista.id}`).update({
+      items: firebase.firestore.FieldValue.arrayUnion( item ),
+    });
+  }
+
+  deleteItem(lista: List) {
+    this.db.doc(`listas/${lista.id}`).set(lista, { merge: true });
+
+  }
+  deleteList(lista: List) {
+    this.db
+      .doc(`listas/${lista.id}`)
+      .delete()
+      .then(() => Swal.fire('Delet list', 'Delete successfully', 'success'));
+  }
+
+  // fin nuevo
+
+  getListasPromise(key) {
+    return this.db
+      .collection('users')
+      .doc(key)
+      .collection('Listas')
+      .valueChanges()
+      .pipe(first())
+      .toPromise();
+  }
   getLista(key, doc) {
     this.list = this.db
       .collection('users')
       .doc(key)
-      .collection('Listas').doc(doc)
+      .collection('Listas')
+      .doc(doc)
       .valueChanges();
   }
 
-  deletList(user, doc){
-    this.db
-    .collection('users')
-    .doc(user)
-    .collection('Listas')
-    .doc(doc).delete().then(res=>  Swal.fire('Delet list', 'Delete successfully', 'success')
-    )
+  public pruebaSuazo(key, doc) {
+    return this.db
+      .collection('users')
+      .doc(key)
+      .collection('Listas')
+      .doc(doc)
+      .valueChanges()
+      .pipe(first())
+      .toPromise();
   }
-  deletItem(user, doc, item){
 
+  deletList(user, doc) {
     this.db
-    .collection('users')
-    .doc(user)
-    .collection('Listas')
-    .doc(doc).update({
-      "tareas": firebase.firestore.FieldValue.arrayRemove(item)
-  });
- 
+      .collection('users')
+      .doc(user)
+      .collection('Listas')
+      .doc(doc)
+      .delete()
+      .then((res) => Swal.fire('Delet list', 'Delete successfully', 'success'));
   }
-  addItem(user, doc, item){
-
+  deletItem(user, doc, item) {
     this.db
-    .collection('users')
-    .doc(user)
-    .collection('Listas')
-    .doc(doc).update({
-      "tareas": firebase.firestore.FieldValue.arrayUnion(item)
-  });
- 
+      .collection('users')
+      .doc(user)
+      .collection('Listas')
+      .doc(doc)
+      .update({
+        tareas: firebase.firestore.FieldValue.arrayRemove(item),
+      });
+  }
+  addItemOld(user, doc, item) {
+    this.db
+      .collection('users')
+      .doc(user)
+      .collection('Listas')
+      .doc(doc)
+      .update({
+        tareas: firebase.firestore.FieldValue.arrayUnion(item),
+      });
   }
 }

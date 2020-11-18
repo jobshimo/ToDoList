@@ -1,16 +1,13 @@
-// From Angular:
+// ANGULAR
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
-// Servicios:
-import { AuthService } from '../../../services/auth.service';
-
-// Modelos:
-import { UserModel } from 'src/app/models/user.model';
+// RXJS
 import { Subscription } from 'rxjs';
 
-// --FIN IMPORTACIONES--
+// SERVICES
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -18,38 +15,32 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  // Variables:
 
-  usuario: UserModel = new UserModel();
-  recordarme = false;
   formLogin: FormGroup;
   appUserGoogle$: Subscription;
 
-  // --FIN VARIABLES--
-
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {
-    this.crearFormulario();
+  constructor(public authService: AuthService, private fb: FormBuilder) {
+    this.createForm();
   }
 
   ngOnInit(): void {
-    // console.log(this.authService.isSignIn2);
-    if (localStorage.getItem('email')) {
-      this.usuario.email = localStorage.getItem('email');
-      this.recordarme = true;
+       if (localStorage.getItem('email')) {
+      const rememberMe = localStorage.getItem('email');
+      this.formLogin.patchValue({ email: rememberMe });
+      this.formLogin.patchValue({ remember: true });
     }
-    // this.authService.isAuth().subscribe((user) => {
-    //   if (user) {
-    //     this.router.navigateByUrl('/home');
-    //   }
-    // });
   }
 
-  // Get para el formularios:
+  // FORM
+  createForm() {
+    this.formLogin = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      remember: [false],
+    });
+  }
 
+  // GET
   get usuarioNoValido() {
     return (
       this.formLogin.get('email').invalid && this.formLogin.get('email').touched
@@ -62,34 +53,30 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  // --FIN GET FORMULARIO--
+  // METHODS
 
-  // Formulario:
-
-  crearFormulario() {
-    this.formLogin = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
-  //  --FIN FORMULARIO--
-
-  // Metodos:
   login() {
     if (this.formLogin.invalid) {
       console.log('Formulario no valido');
       return;
     }
-
-    console.log(this.formLogin.value);
     this.authService.signIn(
       this.formLogin.value.email,
       this.formLogin.value.password
     );
+   this.remeberMe();
   }
 
   loginGoogle() {
     this.authService.GoogleAuth();
+    this.remeberMe();
   }
-  // --FIN METODOS--
+
+  remeberMe(){
+    if (this.formLogin.value.remember === true) {
+      localStorage.setItem('email', this.formLogin.value.email);
+    } else {
+      localStorage.removeItem('email');
+    }
+  }
 }

@@ -20,6 +20,7 @@ import { UserModel } from '../models/user.model';
 export class AuthService implements OnInit {
   isSignIn: boolean;
   appUser$: Observable<UserModel>;
+  user:UserModel;
   userGoogle: Subscription;
 
   constructor(
@@ -59,7 +60,7 @@ export class AuthService implements OnInit {
     }
   }
 
-  async getUser() {
+  getUser() {
     this.appUser$ = this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {

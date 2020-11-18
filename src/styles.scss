@@ -22,7 +22,6 @@
 
 .list {
     margin: auto;
-    margin-top: 11px;
 }
 
 .marginDelete {
@@ -39,12 +38,12 @@
 }
 
 body {
-    background-color: #5d2b30;
+    background-color: white;
 }
 
 .fondolista {
-    background: #45229c;
-    color: white;
+    background: #fefefe;
+    color: #212529;
 }
 
 .back {
@@ -54,26 +53,32 @@ body {
 .tb {
     text-align: center;
     color: white;
-    background: linear-gradient(to bottom, #229a9a, #46229a);
     margin-bottom: 0;
     border: none !important;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    background: #343a40;
 }
 
 .tbEnd {
     text-align: center;
     color: white;
-    background: linear-gradient(to bottom, #46229a, #229a9a, );
     margin-bottom: 0;
     border: none !important;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
+    background: #363c42;
 }
 
 .condition {
-    background: #2b8220;
+    background: #adb5bd;
     margin-left: 10px;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.pading0 {
+    padding: 0px;
 }
 
 .float {
@@ -100,4 +105,8 @@ body {
 
 .fondoNav {
     background: linear-gradient(to bottom, #229a9a, #46229a);
+}
+
+.btnAddItem {
+    margin-bottom: -15px;
 }

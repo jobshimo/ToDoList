@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AnimatedLoginComponent implements OnInit {
   // Variables:
-  usuario: UserModel = new UserModel();
+  usuario: UserModel ;
   recordarme = false;
   formLogin: FormGroup;
   formRegistro: FormGroup;

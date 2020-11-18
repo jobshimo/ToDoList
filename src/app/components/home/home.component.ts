@@ -2,8 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // SERVICES
-import { AuthService } from 'src/app/services/auth.service';
-import { ListService } from 'src/app/services/list.service';
+
 
 @Component({
   selector: 'app-home',
@@ -11,10 +10,7 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private authService: AuthService
-    ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 }

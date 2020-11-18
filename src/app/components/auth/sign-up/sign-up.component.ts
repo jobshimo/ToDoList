@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignUpComponent implements OnInit {
   // Variables:
 
-  usuario: UserModel = new UserModel();
+  usuario: UserModel;
   recordarme = false;
   formRegistro: FormGroup;
 
