@@ -26,7 +26,7 @@ export class ModalService {
   }
 
   subirArchivo(file, key) {
-    let referencia = this.firebaseStorage.referenciaCloudStorage(key);
+    let referencia = this.firebaseStorage.refCloudStorage(key);
     let upload = this.firebaseStorage.uploadCloudStorage(key, file);
 
     //Cambia el porcentaje

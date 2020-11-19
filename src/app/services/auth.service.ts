@@ -14,13 +14,11 @@ import { auth } from 'firebase/app';
 // MODELS
 import { UserModel } from '../models/user.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService implements OnInit {
   isSignIn: boolean;
   appUser$: Observable<UserModel>;
-  user:UserModel;
+  user: UserModel;
   userGoogle: Subscription;
 
   constructor(
@@ -97,7 +95,6 @@ export class AuthService implements OnInit {
     this.afAuth.auth.signOut();
   }
 
-  //FUNCTIONS:
   userGenerator(user, name) {
     const NEWUSER = {
       email: user.user.email,
@@ -109,8 +106,7 @@ export class AuthService implements OnInit {
       address2: '',
       city: '',
       state: '',
-      img:
-        'https://firebasestorage.googleapis.com/v0/b/idolosapp.appspot.com/o/no-img.jpg?alt=media&token=bee221ed-9ac9-45aa-a09e-4302ca326e21',
+      img: '../../assets/img/no-img.jpg',
     };
     return NEWUSER;
   }

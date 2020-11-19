@@ -6,10 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
-import { AnimatedLoginComponent } from './components/animated-login/animated-login.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ListasComponent } from './components/listas/listas.component'
-import { ListaComponent } from './components/lista/lista.component'
+
 
 // FIRABASE
 import {
@@ -38,10 +37,6 @@ const routes: Routes = [
         path: 'listas',
         component: ListasComponent,
       },
-      {
-        path: 'lista/:id',
-        component: ListaComponent,
-      },
     ],
   },
   {
@@ -56,8 +51,6 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToItems },
   },
-
-  { path: 'animated', component: AnimatedLoginComponent },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];

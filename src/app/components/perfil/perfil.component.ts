@@ -15,10 +15,8 @@ import { ListService } from '../../services/list.service';
 export class PerfilComponent implements OnInit, OnDestroy {
   appUser: UserModel;
   appUserSub: Subscription;
-
-  listas: any[] = [];
   paises: any[] = [];
-  paisesSub: Subscription;
+  private paisesSub: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -45,7 +43,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
 
   saveData(userForm) {
     this.userService.saveUserData(this.appUser.key, userForm);
-
     if (this.authService.userGoogle) {
       this.authService.userGoogle.unsubscribe();
     }
@@ -55,6 +52,4 @@ export class PerfilComponent implements OnInit, OnDestroy {
     this.appUserSub.unsubscribe();
     this.paisesSub.unsubscribe();
   }
-
-  
 }

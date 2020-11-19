@@ -8,16 +8,16 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class FirebaseStorageService {
   constructor(private storage: AngularFireStorage) {}
 
-  //Tarea para subir archivo
-  public uploadCloudStorage(nombreArchivo: string, datos: any) {
+  //UPLOAD FILE
+  public uploadCloudStorage(fileName: string, data: any) {
     return this.storage.upload(
-      `usuarios/${nombreArchivo}/${nombreArchivo}`,
-      datos
+      `usuarios/${fileName}/${fileName}`,
+      data
     );
   }
 
-  //Referencia del archivo
-  public referenciaCloudStorage(nombreArchivo: string) {
-    return this.storage.ref(`usuarios/${nombreArchivo}/${nombreArchivo}`);
+  //REF FIRE
+  public refCloudStorage(fileName: string) {
+    return this.storage.ref(`usuarios/${fileName}/${fileName}`);
   }
 }

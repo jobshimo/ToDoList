@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 // FIREBASE
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -11,7 +12,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // COMPONENTS
-import { AnimatedLoginComponent } from './components/animated-login/animated-login.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -20,14 +20,13 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
 
-// RUTAS
+// ROUTE
 import { AppRoutingModule } from './app-routing.module';
 
 // ENTORNOS
 import { environment } from '../environments/environment';
 import { ListasComponent } from './components/listas/listas.component';
-import { ListaComponent } from './components/lista/lista.component';
-import { CompletePipe } from './pipes/complete.pipe';
+
 
 @NgModule({
   declarations: [
@@ -36,12 +35,9 @@ import { CompletePipe } from './pipes/complete.pipe';
     LoginComponent,
     SignUpComponent,
     HomeComponent,
-    AnimatedLoginComponent,
     PerfilComponent,
     ModalComponent,
     ListasComponent,
-    ListaComponent,
-    CompletePipe,
   ],
   imports: [
     BrowserModule,
