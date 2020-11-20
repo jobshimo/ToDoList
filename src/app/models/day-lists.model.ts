@@ -6,7 +6,7 @@ export interface DayLists {
   }
   
   export const newDayLists:DayLists = {
-    day: null,
-    lists: null
+    day: '',
+    lists: []
   };
   

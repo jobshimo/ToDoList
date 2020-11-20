@@ -24,25 +24,34 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listas.component.scss'],
 })
 export class ListasComponent implements OnInit, OnDestroy {
-  listas: List[] = [];
+  listsByday: DayLists[] = [];
   appUser: UserModel;
   appUserSub: Subscription;
   listsSub: Subscription;
+  show: boolean;
+  loading: boolean;
   constructor(
     private listService: ListService,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.show = false;
+    this.loading = true;
     this.appUserSub = this.authService.appUser$.subscribe((data) => {
       if (data) {
         this.appUser = data;
         this.listsSub = this.listService
           .getLists(this.appUser.key)
           .subscribe((data) => {
-            this.listas = data;
-            this.getTistsOrderByDay(this.listas);
-            // console.log(this.listas[0].createdDate['seconds']);
+            this.listsByday = this.getTistsOrderByDay(data);
+            this.loading = false
+            if (data.length === 0) {
+              this.show = true;
+              console.log('hola');
+            } else {
+              this.show = false;
+            }
           });
       }
     });
@@ -65,7 +74,7 @@ export class ListasComponent implements OnInit, OnDestroy {
         listsByDay.splice(0, 0, day);
       }
     }
-    console.log(listsByDay);
+    return listsByDay;
   }
 
   timeConverter(UNIX_timestamp): string {
@@ -106,38 +115,38 @@ export class ListasComponent implements OnInit, OnDestroy {
     }
   }
 
-  async editList(listIndex: number) {
+  async editList(dayIndex: number, listIndex: number) {
     const { value = '' } = await Swal.fire<string>({
       title: 'Edit List',
       text: 'Enter the new name of the list',
       input: 'text',
-      inputValue: this.listas[listIndex].title,
+      inputValue: this.listsByday[dayIndex].lists[listIndex].title,
       inputPlaceholder: 'List name',
       showCancelButton: true,
     });
 
     if (value.trim().length > 0) {
-      this.listas[listIndex].title = value;
-      this.listService.editList(this.listas[listIndex]);
+      this.listsByday[dayIndex].lists[listIndex].title = value;
+      this.listService.editList(this.listsByday[dayIndex].lists[listIndex]);
     }
   }
 
-  deleteList(listIndex: number) {
+  deleteList(dayIndex: number, listIndex: number) {
     Swal.fire({
       title: 'Delete list?',
-      text: `You are about to delete the list: "${this.listas[listIndex].title}"`,
+      text: `You are about to delete the list: "${this.listsByday[dayIndex].lists[listIndex].title}"`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.listService.deleteList(this.listas[listIndex]);
-        this.listas.splice(listIndex, 1);
+        this.listService.deleteList(this.listsByday[dayIndex].lists[listIndex]);
+        this.listsByday[dayIndex].lists.splice(listIndex, 1);
       }
     });
   }
 
-  async addNewItem(listIndex: number) {
+  async addNewItem(dayIndex: number, listIndex: number) {
     const { value = '' } = await Swal.fire<string>({
       title: 'Create Item',
       text: 'Enter the name of the new item',
@@ -150,22 +159,26 @@ export class ListasComponent implements OnInit, OnDestroy {
         isFinished: false,
         item: value,
       };
-      this.listas[listIndex].items.push(newItem);
-      this.listService.addItem(this.listas[listIndex], newItem);
+      this.listsByday[dayIndex].lists[listIndex].items.push(newItem);
+      this.listService.addItem(
+        this.listsByday[dayIndex].lists[listIndex],
+        newItem
+      );
     }
   }
 
-  removeItem(listIndex: number, itemIndex: number) {
-    this.listas[listIndex].items.splice(itemIndex, 1);
-    this.listService.deleteItem(this.listas[listIndex]);
+  removeItem(dayIndex: number, listIndex: number, itemIndex: number) {
+    this.listsByday[dayIndex].lists[listIndex].items.splice(itemIndex, 1);
+    this.listService.deleteItem(this.listsByday[dayIndex].lists[listIndex]);
   }
 
-  async editItem(listIndex: number, itemIndex: number) {
+  async editItem(dayIndex: number, listIndex: number, itemIndex: number) {
     const { value = '' } = await Swal.fire<string>({
       title: 'Edit Item',
       text: 'Enter the new name of the item',
       input: 'text',
-      inputValue: this.listas[listIndex].items[itemIndex].item,
+      inputValue: this.listsByday[dayIndex].lists[listIndex].items[itemIndex]
+        .item,
       inputPlaceholder: 'Item name',
       showCancelButton: true,
     });
@@ -174,17 +187,26 @@ export class ListasComponent implements OnInit, OnDestroy {
         ...ListItemModel,
         item: value,
       };
-      this.listas[listIndex].items.splice(itemIndex, 1, newItem);
-      this.listService.deleteItem(this.listas[listIndex]);
+      this.listsByday[dayIndex].lists[listIndex].items.splice(
+        itemIndex,
+        1,
+        newItem
+      );
+      this.listService.deleteItem(this.listsByday[dayIndex].lists[listIndex]);
     }
   }
-  checkItem(listIndex: number, itemIndex: number) {
+  checkItem(dayIndex: number, listIndex: number, itemIndex: number) {
     let newItem: ListItem = {
-      item: this.listas[listIndex].items[itemIndex].item,
-      isFinished: !this.listas[listIndex].items[itemIndex].isFinished,
+      item: this.listsByday[dayIndex].lists[listIndex].items[itemIndex].item,
+      isFinished: !this.listsByday[dayIndex].lists[listIndex].items[itemIndex]
+        .isFinished,
     };
-    this.listas[listIndex].items.splice(itemIndex, 1, newItem);
-    this.listService.deleteItem(this.listas[listIndex]);
+    this.listsByday[dayIndex].lists[listIndex].items.splice(
+      itemIndex,
+      1,
+      newItem
+    );
+    this.listService.deleteItem(this.listsByday[dayIndex].lists[listIndex]);
   }
 
   ngOnDestroy(): void {

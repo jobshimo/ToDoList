@@ -1,7 +1,6 @@
 // ANGUALR
 import { Component, OnInit } from '@angular/core';
-
-// SERVICES
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(public router:Router) {}
 
   ngOnInit(): void {}
 }

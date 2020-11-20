@@ -26,6 +26,8 @@ import { AppRoutingModule } from './app-routing.module';
 // ENTORNOS
 import { environment } from '../environments/environment';
 import { ListasComponent } from './components/listas/listas.component';
+import { FooterComponent } from './shared/footer/footer/footer.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { ListasComponent } from './components/listas/listas.component';
     PerfilComponent,
     ModalComponent,
     ListasComponent,
+    FooterComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

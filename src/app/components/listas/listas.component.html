@@ -1,69 +1,107 @@
 <div class="col-md-8 list animated fadeIn">
     <div class="row">
         <div class="col d-flex flex-row-reverse mt-3 mb-1">
+            <div>
 
-            <button type="button" (click)="createList()" class="btn btn-success back btnAddList"><i class="fas fa-plus cursor"></i> New List
-            </button>
+                <div class="iconNew" *ngIf="show">
+                    <i class="fa fa-play faa-horizontal animated"></i>
+
+                </div>
+
+
+                <button type="button" (click)="createList()" class="btn btn-success back btnAddList"><i class="fas fa-plus cursor"></i> New List
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron animated fadeIn" *ngIf="show">
+        <div class="container">
+            <h1 class="display-4 text-center">Quick! Create your first list now</h1>
+
+
 
         </div>
     </div>
-    <div id="accordion">
-        <div class="card mb-1" *ngFor="let lista of listas, let a = index; trackBy: trackByFn">
-            <div class="card-header p-0" [id]="'heading'+lista.id">
-                <div class="card-body p-0">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn slow">
-                            <div class="d-flex">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+lista.id" aria-expanded="true" [attr.aria-controls]="'collapse'+lista.id">
-                               {{lista.title.toUpperCase()}}
-                                <span class="badge badge-primary badge-pill itemsNumber ml-2">{{lista.items.length}}
-                                    
-                                </span>
-                            </a>
-                                <div class="dateList">{{lista.createdDate['seconds']*1000 | date:'dd/MM/yyyy'}}</div>
-                            </div>
-                            <span>
-                                <a (click)="deleteList(a)" class="badge badge-danger badge-pill marginDelete tools zoom"><i
-                                        class="fas fa-trash-alt cursor"></i></a>
-                                <a (click)="editList(a)" class="badge badge-primary badge-pill marginDelete tools zoom"><i
-                                        class="fas fa-pen-square cursor"></i></a>
-                            </span>
-                        </li>
-                    </ul>
+    <div class="jumbotron" *ngIf="loading">
+        <div class="container">
+            <h1 class="display-4 text-center">Loading lists. Please wait...</h1>
 
+
+
+        </div>
+    </div>
+
+
+    <div>
+
+
+        <div id="accordion" *ngFor="let listaD of listsByday,let x = index; trackBy: trackByFn">
+            <div class="row">
+                <div class="col d-flex flex-row mt-3 mb-1">
+                    <div class="dateList">Created day: {{listaD.day}}</div>
                 </div>
+            </div>
+            <div class="card mb-1" *ngFor="let lista of listaD.lists, let a = index; trackBy: trackByFn">
+                <div class="card-header p-0" [id]="'heading'+lista.id">
+                    <div class="card-body p-0">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn">
+                                <div class="d-flex long-and-truncated alingList">
+                                    <a class="long-and-truncated" role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+lista.id" aria-expanded="true" [attr.aria-controls]="'collapse'+lista.id">
 
-                <div [id]="'collapse'+lista.id" class="panel-collapse collapse" role="tabpanel" [attr.aria-labelledby]="'heading'+lista.id">
+                                        <span class="badge badge-primary badge-pill itemsNumber ml-2">{{lista.items.length}}
 
-
-
-                    <div class="card-body">
-                        <ul class="list-group" *ngFor="let item of lista.items, let i = index; trackBy: trackByFn">
-                            <li [ngClass]="(item.isFinished)?'condition':''" class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn slow">
-                                <div>{{i+1}} - {{capitalizeFirstLetter(item.item) }}</div>
-                                <span class="btnsSpan">
-                                    <a *ngIf="!item.isFinished" (click)="checkItem(a,i)"
-                                        class="badge badge-success badge-pill marginDelete tools zoom"><i
-                                            class="fas fa-check cursor"></i></a>
-                                    <a *ngIf="item.isFinished" (click)="checkItem(a,i)"
-                                        class="badge badge-undo badge-pill marginDelete tools zoom"><i class="fas fa-undo cursor"></i></a>
-                                    <a *ngIf="!item.isFinished" (click)="removeItem(a,i)"
-                                        class="badge badge-danger badge-pill marginDelete tools zoom"><i
-                                            class="fas fa-trash-alt cursor"></i></a>
-                                    <a *ngIf="!item.isFinished" (click)="editItem(a,i)"
-                                        class="badge badge-primary badge-pill marginDelete tools zoom"><i
+                                        </span> {{lista.title.toUpperCase()}}
+                                    </a>
+                                    <!-- <div class="dateList">{{lista.createdDate['seconds']*1000 | date:'dd/MM/yyyy'}}</div> -->
+                                </div>
+                                <span style="margin-right: -20px;">
+                                    <a (click)="editList(x,a)" class="badge badge-primary badge-pill marginDelete tools zoom"><i
                                             class="fas fa-pen-square cursor"></i></a>
+                                    <a (click)="deleteList(x,a)" class="badge badge-danger badge-pill marginDelete tools zoom"><i
+                                            class="fas fa-trash-alt cursor"></i></a>
                                 </span>
                             </li>
-
                         </ul>
-                        <div class=" text-center mt-1 btnAddItem">
-                            <button type="button" (click)="addNewItem(a)" class="btn btn-success back btnAddItemIcon"><i
-                                    class="fas fa-plus cursor"></i> Add item </button>
-                        </div>
 
                     </div>
+
+                    <div [id]="'collapse'+lista.id" class="panel-collapse collapse" role="tabpanel" [attr.aria-labelledby]="'heading'+lista.id">
+
+
+
+                        <div class="card-body">
+                            <div style="padding-bottom: 20px;">
+                                <ul class="list-group" *ngFor="let item of lista.items, let i = index; trackBy: trackByFn">
+                                    <li [ngClass]="(item.isFinished)?'condition':''" class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn ">
+                                        <div class="long-and-truncated" style="margin-left: -10px;" [title]="capitalizeFirstLetter(item.item)">{{capitalizeFirstLetter(item.item) }}</div>
+                                        <span class="btnsSpan">
+                                            <a *ngIf="!item.isFinished" (click)="checkItem(x,a,i)"
+                                                class="badge badge-success badge-pill marginDelete tools zoom"><i
+                                                    class="fas fa-check cursor"></i></a>
+                                            <a *ngIf="item.isFinished" (click)="checkItem(x,a,i)"
+                                                class="badge badge-undo badge-pill marginDelete tools zoom"><i
+                                                    class="fas fa-undo cursor"></i></a>
+                                            <a *ngIf="!item.isFinished" (click)="editItem(x,a,i)"
+                                                class="badge badge-primary badge-pill marginDelete tools zoom"><i
+                                                    class="fas fa-pen-square cursor"></i></a>
+                                            <a *ngIf="!item.isFinished" (click)="removeItem(x,a,i)"
+                                                class="badge badge-danger badge-pill marginDelete tools zoom"><i
+                                                    class="fas fa-trash-alt cursor"></i></a> </span>
+                                    </li>
+                                </ul>
+                                <div class=" text-center mt-1 btnAddItem">
+                                    <button type="button" (click)="addNewItem(x,a)" class="btn btn-success back btnAddItemIcon"><i
+                                            class="fas fa-plus cursor"></i> Add item </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
         </div>
+
+    </div>
