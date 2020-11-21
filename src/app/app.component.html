@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<main>
+    <div class="d-flex flex-column">
+        <app-navbar *ngIf="authService.appUser$ |async"></app-navbar>
+        <main class="flex-fill">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</main>
+<app-footer *ngIf="authService.appUser$ |async"></app-footer>

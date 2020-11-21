@@ -28,6 +28,7 @@ import { environment } from '../environments/environment';
 import { ListasComponent } from './components/listas/listas.component';
 import { FooterComponent } from './shared/footer/footer/footer.component';
 import { AboutComponent } from './components/about/about.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { AboutComponent } from './components/about/about.component';
     FormsModule,
     AngularFireStorageModule,
     HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent],

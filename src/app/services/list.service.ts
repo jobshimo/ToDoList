@@ -45,7 +45,7 @@ export class ListService {
   }
 
   deleteItem(list: List) {
-    this.db.doc(`listas/${list.id}`).set(list, { merge: true });
+   this.db.doc(`listas/${list.id}`).set(list, { merge: true });
   }
 
   deleteList(list: List) {

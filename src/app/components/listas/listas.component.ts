@@ -44,8 +44,8 @@ export class ListasComponent implements OnInit, OnDestroy {
         this.listsSub = this.listService
           .getLists(this.appUser.key)
           .subscribe((data) => {
-            this.listsByday = this.getTistsOrderByDay(data);
-            this.loading = false
+            this.listsByday = this.getListsOrderByDay(data);
+            this.loading = false;
             if (data.length === 0) {
               this.show = true;
             } else {
@@ -56,7 +56,44 @@ export class ListasComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTistsOrderByDay(lists: List[]) {
+  checkListIsFinished(dayIndex: number, listIndex: number) {
+    for (
+      let i = 0;
+      i < this.listsByday[dayIndex].lists[listIndex].items.length;
+      i++
+    ) {
+      if (
+        this.listsByday[dayIndex].lists[listIndex].items[i].isFinished != true
+      ) {
+        this.listsByday[dayIndex].lists[listIndex].finishedData = null;
+        this.listsByday[dayIndex].lists[listIndex].isFinished = false;
+        this.listService.editList(this.listsByday[dayIndex].lists[listIndex]);
+        return;
+      }
+    }
+    this.listsByday[dayIndex].lists[listIndex].finishedData = new Date();
+    this.listsByday[dayIndex].lists[listIndex].isFinished = true;
+    this.listService.editList(this.listsByday[dayIndex].lists[listIndex]);
+  }
+
+  public itemsToFinish(dayIndex: number, listIndex: number) {
+    let toFinish: number = this.listsByday[dayIndex].lists[listIndex].items
+      .length;
+    for (
+      let i = 0;
+      i < this.listsByday[dayIndex].lists[listIndex].items.length;
+      i++
+    ) {
+      if (
+        this.listsByday[dayIndex].lists[listIndex].items[i].isFinished != true
+      ) {
+        toFinish--;
+      }
+    }
+    return toFinish;
+  }
+
+  getListsOrderByDay(lists: List[]) {
     let listsByDay: DayLists[] = [];
     let day: DayLists = newDayLists;
     for (let i = 0; i < lists.length; i++) {
@@ -194,7 +231,7 @@ export class ListasComponent implements OnInit, OnDestroy {
       this.listService.deleteItem(this.listsByday[dayIndex].lists[listIndex]);
     }
   }
-  checkItem(dayIndex: number, listIndex: number, itemIndex: number) {
+  async checkItem(dayIndex: number, listIndex: number, itemIndex: number) {
     let newItem: ListItem = {
       item: this.listsByday[dayIndex].lists[listIndex].items[itemIndex].item,
       isFinished: !this.listsByday[dayIndex].lists[listIndex].items[itemIndex]
@@ -206,6 +243,7 @@ export class ListasComponent implements OnInit, OnDestroy {
       newItem
     );
     this.listService.deleteItem(this.listsByday[dayIndex].lists[listIndex]);
+    this.checkListIsFinished(dayIndex, listIndex);
   }
 
   ngOnDestroy(): void {

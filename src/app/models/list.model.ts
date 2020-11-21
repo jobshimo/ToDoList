@@ -7,6 +7,7 @@ export interface List {
   isFinished: boolean;
   items: ListItem[];
   owner:string;
+  finishedData:Date;
  }
 
 export const newList:List = {
@@ -15,6 +16,7 @@ export const newList:List = {
   createdDate: new Date(),
   isFinished: false,
   items: [],
-  owner: null
+  owner: null,
+  finishedData: null
 }
 

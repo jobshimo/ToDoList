@@ -2,40 +2,26 @@
     <div class="row">
         <div class="col d-flex flex-row-reverse mt-3 mb-1">
             <div>
-
                 <div class="iconNew" *ngIf="show">
                     <i class="fa fa-play faa-horizontal animated"></i>
-
                 </div>
-
-
-                <button type="button" (click)="createList()" class="btn btn-success back btnAddList"><i class="fas fa-plus cursor"></i> New List
+                <button type="button" (click)="createList()" class="btn btn-success back btnAddList"><i class="fas fa-plus cursor"></i> New
+                    List
                 </button>
-
             </div>
         </div>
     </div>
     <div class="jumbotron animated fadeIn" *ngIf="show">
         <div class="container">
             <h1 class="display-4 text-center">Quick! Create your first list now</h1>
-
-
-
         </div>
     </div>
     <div class="jumbotron" *ngIf="loading">
         <div class="container">
             <h1 class="display-4 text-center">Loading lists. Please wait...</h1>
-
-
-
         </div>
     </div>
-
-
     <div>
-
-
         <div id="accordion" *ngFor="let listaD of listsByday,let x = index; trackBy: trackByFn">
             <div class="row">
                 <div class="col d-flex flex-row mt-3 mb-1">
@@ -45,12 +31,15 @@
             <div class="card mb-1" *ngFor="let lista of listaD.lists, let a = index; trackBy: trackByFn">
                 <div class="card-header p-0" [id]="'heading'+lista.id">
                     <div class="card-body p-0">
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn">
-                                <div class="d-flex long-and-truncated alingList">
-                                    <a [title]="lista.title.toUpperCase()" class="long-and-truncated" role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+lista.id" aria-expanded="true" [attr.aria-controls]="'collapse'+lista.id">
+                        <ul class="list-group" [class.finishTable]="lista.isFinished">
+                            <li [ngClass]="(lista.isFinished)?'conditionList':''" class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn">
+                                <div class="d-flex long-and-truncated alingList" style="
+                                display: block !important;
+                            ">
+                                    <div *ngIf="lista.isFinished" class="dateList isFinished">Finished: {{lista.finishedData['seconds']*1000 |date:'dd/MM/yyyy h:mm:ss a'}}</div>
+                                    <a [class.conditionList2]="lista.isFinished" [title]="lista.title.toUpperCase()" class="long-and-truncated" role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+lista.id" aria-expanded="true" [attr.aria-controls]="'collapse'+lista.id">
 
-                                        <span class="badge badge-primary badge-pill itemsNumber ml-2">{{lista.items.length}}
+                                        <span class="badge badge-primary badge-pill itemsNumber ml-2">{{itemsToFinish(x,a)}}/{{lista.items.length}}
 
                                         </span> {{lista.title.toUpperCase()}}
                                     </a>

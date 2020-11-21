@@ -1,11 +1,28 @@
-<body>
-    <div class="d-flex flex-column">
-        <app-navbar>
-        </app-navbar>
-        <main class="flex-fill">
-            <router-outlet></router-outlet>
-            <app-about *ngIf="router.url === ('/home')"></app-about>
-        </main>
+<div class="jumbotron mt-4">
+    <div class="container">
+        <h1 class="display-4 text-center">ToDoList is an example app.</h1>
+        <p class="text-center">Created by Martín Bernal.
+        </p>
+
+
+        <ul>
+            <li>You can edit the user profile.</li>
+            <li>Upload and change the avatar image.</li>
+            <li>Create, modify and delete to-do lists.</li>
+            <li>Create, modify, delete and check items from each list.</li>
+            <li>The lists are automatically grouped by creation date.</li>
+
+        </ul>
+
+        <p class="text-center userAdmin">The lists are private and are linked to the user.
+        </p>
+        &nbsp;
+        <p class="text-center">Created with Angular 10, Firebase, Bootstrap 4 and Fontawesome.
+        </p>
+        <p class="text-center">
+            <a class="text-center" href="https://github.com/jobshimo/ToDoList" target="_blanck">Link to gitHub
+                proyect
+            </a>
+        </p>
     </div>
-</body>
-<app-footer></app-footer>
+</div>

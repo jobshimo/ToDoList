@@ -28,16 +28,18 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
-    children: [
-      {
-        path: 'perfil',
-        component: PerfilComponent,
-      },
-      {
-        path: 'listas',
-        component: ListasComponent,
-      },
-    ],
+   },
+   {
+    path: 'profile',
+    component: PerfilComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+  },
+  {
+    path: 'lists',
+    component: ListasComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'signup',
