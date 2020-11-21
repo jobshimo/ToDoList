@@ -1,15 +1,11 @@
-<app-navbar>
-</app-navbar>
-
-
-<div id="wrap">
-    <div id="main" class="container clear-top">
-        <app-about *ngIf="router.url === ('/home')"></app-about>
-        <router-outlet></router-outlet>
-
+<body>
+    <div class="d-flex flex-column">
+        <app-navbar>
+        </app-navbar>
+        <main class="flex-fill">
+            <router-outlet></router-outlet>
+            <app-about *ngIf="router.url === ('/home')"></app-about>
+        </main>
     </div>
-</div>
-
-
-
+</body>
 <app-footer></app-footer>

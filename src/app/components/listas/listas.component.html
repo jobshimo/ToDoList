@@ -48,7 +48,7 @@
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn">
                                 <div class="d-flex long-and-truncated alingList">
-                                    <a class="long-and-truncated" role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+lista.id" aria-expanded="true" [attr.aria-controls]="'collapse'+lista.id">
+                                    <a [title]="lista.title.toUpperCase()" class="long-and-truncated" role="button" data-toggle="collapse" data-parent="#accordion" [href]="'#collapse'+lista.id" aria-expanded="true" [attr.aria-controls]="'collapse'+lista.id">
 
                                         <span class="badge badge-primary badge-pill itemsNumber ml-2">{{lista.items.length}}
 

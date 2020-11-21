@@ -48,7 +48,6 @@ export class ListasComponent implements OnInit, OnDestroy {
             this.loading = false
             if (data.length === 0) {
               this.show = true;
-              console.log('hola');
             } else {
               this.show = false;
             }
