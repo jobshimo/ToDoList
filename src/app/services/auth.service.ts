@@ -14,6 +14,9 @@ import { auth } from 'firebase/app';
 // MODELS
 import { UserModel } from '../models/user.model';
 
+// EXTERNAL
+import Swal from 'sweetalert2';
+
 @Injectable({ providedIn: 'root' })
 export class AuthService implements OnInit {
   isSignIn: boolean;
@@ -78,7 +81,10 @@ export class AuthService implements OnInit {
           this.isSignIn = true;
           this.router.navigateByUrl('/home');
         }
-      });
+      })
+      .catch(() =>
+        Swal.fire('Error', 'the email or password are not valid', 'error')
+      );
   }
 
   signUp(email, password, name) {
@@ -87,8 +93,10 @@ export class AuthService implements OnInit {
       .then((user) => {
         console.log(user);
         const NEWUSER = this.userGenerator(user, name);
-
         this.db.doc(`users/${user.user.uid}`).set(NEWUSER);
+      })
+      .catch((err) => {
+        Swal.fire('Error', err.message, 'error');
       });
   }
   logout() {

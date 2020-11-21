@@ -11,13 +11,13 @@ export class FirebaseStorageService {
   //UPLOAD FILE
   public uploadCloudStorage(fileName: string, data: any) {
     return this.storage.upload(
-      `usuarios/${fileName}/${fileName}`,
+      `users/${fileName}/${fileName}`,
       data
     );
   }
 
   //REF FIRE
   public refCloudStorage(fileName: string) {
-    return this.storage.ref(`usuarios/${fileName}/${fileName}`);
+    return this.storage.ref(`users/${fileName}/${fileName}`);
   }
 }

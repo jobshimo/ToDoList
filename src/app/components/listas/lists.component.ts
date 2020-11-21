@@ -1,4 +1,4 @@
-// ANFULAR
+// ANGULAR
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 // RXJS
@@ -15,15 +15,15 @@ import { ListItem, ListItemModel } from 'src/app/models/list-item.model';
 import { DayLists, newDayLists } from 'src/app/models/day-lists.model';
 import { UserModel } from 'src/app/models/user.model';
 
-// EXTERNOS
+// EXTERNAL
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-listas',
-  templateUrl: './listas.component.html',
-  styleUrls: ['./listas.component.scss'],
+  selector: 'app-lists',
+  templateUrl: './lists.component.html',
+  styleUrls: ['./lists.component.scss'],
 })
-export class ListasComponent implements OnInit, OnDestroy {
+export class ListsComponent implements OnInit, OnDestroy {
   listsByday: DayLists[] = [];
   appUser: UserModel;
   appUserSub: Subscription;
@@ -126,14 +126,9 @@ export class ListasComponent implements OnInit, OnDestroy {
     return index;
   }
 
-  capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   newList(listName: string) {
     let list: List = newList;
     list.title = listName;
-    // this.listas = [...this.listas, list];
     this.listService.newList(this.appUser.key, list);
   }
 

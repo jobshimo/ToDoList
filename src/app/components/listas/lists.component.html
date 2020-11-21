@@ -64,7 +64,7 @@
                             <div style="padding-bottom: 20px;">
                                 <ul class="list-group" *ngFor="let item of lista.items, let i = index; trackBy: trackByFn">
                                     <li [ngClass]="(item.isFinished)?'condition':''" class="list-group-item d-flex justify-content-between align-items-center fondolista animated fadeIn ">
-                                        <div class="long-and-truncated" style="margin-left: -10px;" [title]="capitalizeFirstLetter(item.item)">{{capitalizeFirstLetter(item.item) }}</div>
+                                        <div class="long-and-truncated" style="margin-left: -10px;" [title]="item.item | capitalizeFirstLetter">{{item.item | capitalizeFirstLetter }}</div>
                                         <span class="btnsSpan">
                                             <a *ngIf="!item.isFinished" (click)="checkItem(x,a,i)"
                                                 class="badge badge-success badge-pill marginDelete tools zoom"><i

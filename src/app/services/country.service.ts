@@ -5,12 +5,12 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class PaisService {
+export class CountryService {
   constructor(private http: HttpClient) {}
 
-  getPaises() {
+  getCountries() {
     return this.http
       .get('https://restcountries.eu/rest/v2/regionalbloc/eu')
-      .pipe(map((resp: any[]) => resp.map((pais) => ({ nombre: pais.name }))));
+      .pipe(map((resp: any[]) => resp.map((country) => ({ name: country.name }))));
   }
 }

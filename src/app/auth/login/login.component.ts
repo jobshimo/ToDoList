@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 // SERVICES
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // FORM
   createForm() {
     this.formLogin = this.fb.group({
       email: ['', Validators.required],
@@ -40,24 +39,21 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // GET
-  get usuarioNoValido() {
+  get invalidUser() {
     return (
       this.formLogin.get('email').invalid && this.formLogin.get('email').touched
     );
   }
-  get passNoValido() {
+  get invalidPass() {
     return (
       this.formLogin.get('password').invalid &&
       this.formLogin.get('password').touched
     );
   }
 
-  // METHODS
 
   login() {
     if (this.formLogin.invalid) {
-      console.log('Formulario no valido');
       return;
     }
     this.authService.signIn(

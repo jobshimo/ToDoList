@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "idolosapp"
+  },
+  "targets": {
+    "idolosapp": {
+      "hosting": {
+        "ToDoList": [
+          "idolosapp"
+        ]
+      }
+    }
   }
 }

@@ -39,7 +39,7 @@
                         <div class="col-md-6"> <label for="inputState">Country</label>
                             <select id="inputState" class="form-control" name="state" [(ngModel)]="appUser.state">
                                 <option>...</option>
-                                <option [value]="pais.nombre" *ngFor="let pais of paises">{{pais.nombre}}</option>
+                                <option [value]="country.name" *ngFor="let country of countries">{{country.name}}</option>
 
                             </select></div>
                         <div class="col-md-6"><label class="labels">City</label><input type="text" class="form-control" id="inputCity" name="city" [(ngModel)]="appUser.city"></div>

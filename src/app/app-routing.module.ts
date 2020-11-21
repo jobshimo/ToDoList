@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // COMPONENTS
-import { LoginComponent } from './components/auth/login/login.component';
-import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HomeComponent } from './components/home/home.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { ListasComponent } from './components/listas/listas.component'
-
+import { ProfileComponent } from './components/profile/profile.component';
+import { ListsComponent } from './components/listas/lists.component';
 
 // FIRABASE
 import {
@@ -16,7 +15,6 @@ import {
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
-
 
 // FireAuthGuard:
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -28,16 +26,16 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
-   },
-   {
+  },
+  {
     path: 'profile',
-    component: PerfilComponent,
+    component: ProfileComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'lists',
-    component: ListasComponent,
+    component: ListsComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },
   },

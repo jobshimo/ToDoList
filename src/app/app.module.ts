@@ -1,8 +1,8 @@
 // ANGULAR
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 
 // FIREBASE
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -13,23 +13,24 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 // COMPONENTS
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/auth/login/login.component';
+import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { ModalComponent } from './components/modal/modal.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { SignUpComponent } from './components/auth/sign-up/sign-up.component';
+import { ListsComponent } from './components/listas/lists.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ModalComponent } from './shared/modal/modal.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 
 // ROUTE
 import { AppRoutingModule } from './app-routing.module';
 
-// ENTORNOS
+// EXTERNAL
 import { environment } from '../environments/environment';
-import { ListasComponent } from './components/listas/listas.component';
-import { FooterComponent } from './shared/footer/footer/footer.component';
-import { AboutComponent } from './components/about/about.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
+// PIPES
+import { CapitalizeFirstLetterPipe } from './pipes/capitalize-first-letter.pipe';
 
 @NgModule({
   declarations: [
@@ -38,11 +39,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     LoginComponent,
     SignUpComponent,
     HomeComponent,
-    PerfilComponent,
+    ProfileComponent,
     ModalComponent,
-    ListasComponent,
+    ListsComponent,
     FooterComponent,
-    AboutComponent,
+    CapitalizeFirstLetterPipe,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     FormsModule,
     AngularFireStorageModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent],

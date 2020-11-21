@@ -85,6 +85,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   cerrarModal() {
     this.imgTemp = null;
+    this.modalImagenService.switchModal();
   }
 
   ngOnDestroy() {

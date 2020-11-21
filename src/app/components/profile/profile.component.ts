@@ -1,28 +1,35 @@
+// ANGULAR
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
+// RXJS
 import { Subscription } from 'rxjs';
-import { UserModel } from '../../models/user.model';
+
+// SERVICES
 import { AuthService } from '../../services/auth.service';
-import { ModalService } from '../../services/modal.service';
-import { UserService } from '../../services/user.service';
-import { PaisService } from '../../services/pais.service';
 import { ListService } from '../../services/list.service';
+import { ModalService } from '../../services/modal.service';
+import { CountryService } from '../../services/country.service';
+import { UserService } from '../../services/user.service';
+
+// MODELS
+import { UserModel } from '../../models/user.model';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
 })
-export class PerfilComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
   appUser: UserModel;
   appUserSub: Subscription;
-  paises: any[] = [];
-  private paisesSub: Subscription;
+  countries: any[] = [];
+  private countriesSub: Subscription;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private modalService: ModalService,
-    private paisService: PaisService,
+    private countryService: CountryService,
     public listService: ListService
   ) {}
 
@@ -32,8 +39,8 @@ export class PerfilComponent implements OnInit, OnDestroy {
         this.appUser = data;
       }
     });
-    this.paisesSub = this.paisService.getPaises().subscribe((paises) => {
-      this.paises = paises;
+    this.countriesSub = this.countryService.getCountries().subscribe((countries) => {
+      this.countries = countries;
     });
   }
 
@@ -50,6 +57,6 @@ export class PerfilComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.appUserSub.unsubscribe();
-    this.paisesSub.unsubscribe();
+    this.countriesSub.unsubscribe();
   }
 }

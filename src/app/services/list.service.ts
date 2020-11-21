@@ -13,7 +13,7 @@ import { List } from '../models/list.model';
 import { ListItem } from '../models/list-item.model';
 import { UserModel } from '../models/user.model';
 
-// EXTERNOS
+// EXTERNAL
 import Swal from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
@@ -45,7 +45,7 @@ export class ListService {
   }
 
   deleteItem(list: List) {
-   this.db.doc(`listas/${list.id}`).set(list, { merge: true });
+    this.db.doc(`listas/${list.id}`).set(list, { merge: true });
   }
 
   deleteList(list: List) {
