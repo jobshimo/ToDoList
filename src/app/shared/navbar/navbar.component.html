@@ -8,13 +8,13 @@ background-color: #2c3d7b;">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" [routerLink]="['/home']">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" [routerLink]="['/home']" data-toggle="collapse" data-target=".navbar-collapse.show">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/lists']">Lists</a>
+                <a class="nav-link" [routerLink]="['/lists']" data-toggle="collapse" data-target=".navbar-collapse.show">Lists</a>
             </li>
             <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+                <a class="nav-link" [routerLink]="['/profile']" data-toggle="collapse" data-target=".navbar-collapse.show">Profile</a>
             </li>
 
 
